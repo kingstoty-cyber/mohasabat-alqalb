@@ -1,65 +1,890 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>محاسبة القلب</title>
-  <link rel="manifest" href="manifest.json">
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin-top: 40px;
-      font-size: 28px;
-    }
-    .card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 30px;
-      line-height: 2;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
-      background: #4CAF50;
-      color: #fff;
-    }
-  </style>
+    <link rel="manifest" href="manifest.json">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبة القلب – وقفة صادقة مع النفس</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5d1a;
+            --secondary: #145a32;
+            --accent: #d4a017;
+            --light: #f8f9fa;
+            --warning: #b7950b;
+            --danger: #8b0000;
+            --success: #2e7d32;
+            --dark: #1a472a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #eef5f0 0%, #f0f8f4 100%);
+            line-height: 1.8;
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 93, 26, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 160, 23, 0.03) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "﴿ فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ ﴾";
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 18px;
+            opacity: 0.3;
+            font-family: 'Amiri', serif;
+        }
+        
+        .header::after {
+            content: "﴿ إِنَّ فِي ذَٰلِكَ لَذِكْرَىٰ لِمَن كَانَ لَهُ قَلْبٌ ﴾";
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            font-size: 18px;
+            opacity: 0.3;
+            font-family: 'Amiri', serif;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            border-right: 8px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        h2 i {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        .ayah {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--dark);
+            padding: 20px;
+            margin: 20px 0;
+            background: linear-gradient(to left, #f4f9f6, #e8f5e9);
+            border-radius: 12px;
+            border-right: 5px solid var(--secondary);
+            line-height: 2.2;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hadith {
+            background: #fdf6e3;
+            border-right: 5px solid var(--warning);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            line-height: 1.9;
+        }
+        
+        .reflect {
+            background: #fef9e7;
+            border-right: 5px solid #f1c40f;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .reflect ul {
+            padding-right: 20px;
+            margin: 15px 0;
+        }
+        
+        .reflect li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .reflect li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            right: -15px;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        button {
+            flex: 1;
+            min-width: 180px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-family: 'Amiri', serif;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to left, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(to left, var(--success), #4caf50);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(to left, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(to left, var(--danger), #c0392b);
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--danger);
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Amiri', serif;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .counter-small {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .result {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-success {
+            background: #d4edda;
+            color: #155724;
+            border-right: 5px solid #28a745;
+        }
+        
+        .result-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-right: 5px solid #ffc107;
+        }
+        
+        .result-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-right: 5px solid #dc3545;
+        }
+        
+        .warning-section {
+            background: linear-gradient(135deg, #fff3cd, #fffaf0);
+            border-right: 8px solid #f39c12;
+        }
+        
+        .dua {
+            background: linear-gradient(135deg, #e8f0fe, #d0e1ff);
+            border-right: 8px solid #3498db;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.5rem;
+            border-radius: 15px;
+            margin: 30px 0;
+            line-height: 2.2;
+            font-family: 'Amiri', serif;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .progress-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--success));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+        
+        .dhikr-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .dhikr-text {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .dhikr-count {
+            font-size: 2.5rem;
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .month-review {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .month-btn {
+            min-width: 120px;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #666;
+            font-size: 1.1rem;
+            border-top: 1px solid #ddd;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .ayah {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            button {
+                min-width: 100%;
+            }
+            
+            .header::before, .header::after {
+                display: none;
+            }
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+    </style>
 </head>
 <body>
-
-  <h1>🕌 محاسبة القلب</h1>
-
-  <div class="card" id="content">
-    ﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ ﴾  
-    <br>— سورة الحشر
-  </div>
-
-  <button onclick="changeText()">ذكر جديد</button>
-
-  <script>
-    const texts = [
-      "قال ﷺ: «الكَيِّسُ مَن دَانَ نَفْسَهُ»",
-      "استغفر الله، فإن القلوب تصدأ",
-      "حاسب نفسك قبل أن تُحاسَب",
-      "اللهم طهّر قلوبنا من النفاق"
-    ];
-
-    function changeText() {
-      const random = Math.floor(Math.random() * texts.length);
-      document.getElementById("content").innerText = texts[random];
-    }
-  </script>
-
+    <div class="floating-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <div class="container">
+        <div class="header heartbeat">
+            <h1><i class="fas fa-heart"></i> محاسبة القلب</h1>
+            <p class="subtitle">وقفة صادقة بينك وبين الله قبل أن تُحاسَب</p>
+        </div>
+        
+        <!-- الجزء 1: المقدمة -->
+        <div class="section">
+            <h2><i class="fas fa-book-open"></i> مقدمة</h2>
+            <p>هذه الصفحة ليست للعرض، بل <strong>وقفة صادقة مع النفس</strong> بينك وبين الله.</p>
+            <p class="ayah">﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ ﴾<br>الحشر 18</p>
+        </div>
+        
+        <!-- الجزء 2: القرآن -->
+        <div class="section">
+            <h2><i class="fas fa-quran"></i> موقفك من القرآن</h2>
+            <p class="ayah">﴿ وَقَالَ الرَّسُولُ يَا رَبِّ إِنَّ قَوْمِي اتَّخَذُوا هَٰذَا الْقُرْآنَ مَهْجُورًا ﴾</p>
+            
+            <div class="reflect">
+                <p>اسأل نفسك بصدق:</p>
+                <ul>
+                    <li>متى آخر مرة قرأت القرآن بتدبر؟</li>
+                    <li>هل القرآن جزء من يومك أم ضيفًا نادرًا؟</li>
+                </ul>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-success" onclick="quran('خير')">
+                    <i class="fas fa-heart"></i> أقرأه وأتدبره
+                </button>
+                <button class="btn-warning" onclick="quran('غفلة')">
+                    <i class="fas fa-volume-up"></i> أقرأ بلا تدبر
+                </button>
+                <button class="btn-danger" onclick="quran('هجر')">
+                    <i class="fas fa-times-circle"></i> أهجر القرآن
+                </button>
+            </div>
+            
+            <div id="quranResult" class="result"></div>
+        </div>
+        
+        <!-- الجزء 3: الصلاة -->
+        <div class="section">
+            <h2><i class="fas fa-mosque"></i> الصلاة: عمود الدين</h2>
+            <p class="ayah">﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا ﴾</p>
+            
+            <div class="progress-container">
+                <p class="counter" id="prayerCount">0 / 5</p>
+                <p>نسبة الإتمام: <span id="prayerPercent">0%</span></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="prayerProgress"></div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-success" onclick="addPrayer()">
+                    <i class="fas fa-plus-circle"></i> صليت فريضة
+                </button>
+                <button class="btn-warning" onclick="resetPrayer()">
+                    <i class="fas fa-redo"></i> إعادة العد
+                </button>
+            </div>
+            
+            <div id="prayerMsg" class="result"></div>
+            
+            <div class="hadith">
+                قال رسول الله ﷺ:<br>
+                «أول ما يُحاسَب عليه العبد يوم القيامة الصلاة»
+            </div>
+        </div>
+        
+        <!-- الجزء 4: الوقت -->
+        <div class="section warning-section">
+            <h2><i class="fas fa-clock"></i> وقفة لا تهرب منها</h2>
+            <p>تملك <strong>1440 دقيقة</strong> يوميًا. الصلاة لا تأخذ أكثر من:</p>
+            <ul style="list-style: none; padding-right: 0;">
+                <li><i class="fas fa-mosque"></i> ساعة في المسجد (60 دقيقة)</li>
+                <li><i class="fas fa-home"></i> دقائق في البيت (20 دقيقة)</li>
+            </ul>
+            <p style="text-align: center; margin-top: 15px; font-weight: bold; color: var(--danger);">
+                المجموع: <strong>80 دقيقة</strong> فقط من أصل 1440 دقيقة!
+            </p>
+            <p style="text-align: center; margin-top: 10px;"><strong>فما الذي يشغلك عن الله؟</strong></p>
+        </div>
+        
+        <!-- الجزء 5: القلب -->
+        <div class="section">
+            <h2><i class="fas fa-heartbeat"></i> حال القلب</h2>
+            <p class="ayah">﴿ أَلَمْ يَأْنِ لِلَّذِينَ آمَنُوا أَن تَخْشَعَ قُلُوبُهُمْ لِذِكْرِ اللَّهِ ﴾</p>
+            
+            <div class="btn-group">
+                <button class="btn-success" onclick="heart('حي')">
+                    <i class="fas fa-heart"></i> قلبي حي
+                </button>
+                <button class="btn-warning" onclick="heart('غافل')">
+                    <i class="fas fa-bed"></i> قلبي غافل
+                </button>
+                <button class="btn-danger" onclick="heart('قاس')">
+                    <i class="fas fa-heart-broken"></i> قلبي قاس
+                </button>
+            </div>
+            
+            <div id="heartResult" class="result"></div>
+        </div>
+        
+        <!-- الجزء 6: الذنوب الخفية -->
+        <div class="section">
+            <h2><i class="fas fa-eye-slash"></i> الذنوب الخفية</h2>
+            <p class="ayah">﴿ يَعْلَمُ خَائِنَةَ الْأَعْيُنِ وَمَا تُخْفِي الصُّدُورُ ﴾</p>
+            
+            <div class="reflect">
+                <p>ليست كل الذنوب ظاهرة، بعضُها:</p>
+                <ul>
+                    <li>نظرة محرّمة</li>
+                    <li>كلمة استهزاء</li>
+                    <li>نية فاسدة</li>
+                    <li>رياء خفي</li>
+                </ul>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-success" onclick="sinState('تائب')">
+                    <i class="fas fa-hands-praying"></i> أستغفر وأتوب
+                </button>
+                <button class="btn-danger" onclick="sinState('مستهين')">
+                    <i class="fas fa-exclamation-triangle"></i> أقع وأكرر
+                </button>
+            </div>
+            
+            <div id="sinResult" class="result"></div>
+            
+            <div class="hadith">
+                قال ﷺ:<br>
+                «إن الله لا ينظر إلى صوركم ولا إلى أجسادكم، ولكن ينظر إلى قلوبكم وأعمالكم»<br>
+                رواه مسلم
+            </div>
+        </div>
+        
+        <!-- الجزء 7: الأذكار -->
+        <div class="section">
+            <h2><i class="fas fa-dharmachakra"></i> أذكار اليوم</h2>
+            
+            <div class="dhikr-box">
+                <div class="dhikr-text" id="dhikrText">سبحان الله</div>
+                <p class="counter-small" id="dhikrCount">0</p>
+                <p>تقدم في الذكر: <span id="dhikrPercent">0%</span></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="dhikrProgress"></div>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-success" onclick="addDhikr()">
+                    <i class="fas fa-plus-circle"></i> ذكرت مرة
+                </button>
+                <button class="btn-warning" onclick="resetDhikr()">
+                    <i class="fas fa-redo"></i> تصفير العداد
+                </button>
+            </div>
+            
+            <div id="dhikrMsg" class="result"></div>
+        </div>
+        
+        <!-- الجزء 8: التوبة -->
+        <div class="section warning-section">
+            <h2><i class="fas fa-door-open"></i> لا تؤجل التوبة</h2>
+            <p class="ayah">﴿ حَتَّىٰ إِذَا جَاءَ أَحَدَهُمُ الْمَوْتُ قَالَ رَبِّ ارْجِعُونِ ﴾</p>
+            
+            <div class="reflect">
+                <p>كم شخص قال: <strong>"سأتوب غدًا..."</strong> فلم يُدرك الغد؟</p>
+                <p>باب التوبة مفتوح الآن، فاغتنمه قبل أن يغلق.</p>
+            </div>
+        </div>
+        
+        <!-- الجزء 9: محاسبة شهرية -->
+        <div class="section">
+            <h2><i class="fas fa-calendar-alt"></i> محاسبة شهرية</h2>
+            
+            <div class="reflect">
+                <p>أجب بصدق:</p>
+                <ul>
+                    <li>هل تحسّن حالي مع الصلاة هذا الشهر؟</li>
+                    <li>هل تركت ذنبًا كنت أصرّ عليه؟</li>
+                    <li>هل اقتربت من القرآن أكثر؟</li>
+                </ul>
+            </div>
+            
+            <div class="month-review">
+                <button class="btn-success month-btn" onclick="monthReview('جيد')">
+                    <i class="fas fa-smile"></i> جيد
+                </button>
+                <button class="btn-warning month-btn" onclick="monthReview('متوسط')">
+                    <i class="fas fa-meh"></i> متوسط
+                </button>
+                <button class="btn-danger month-btn" onclick="monthReview('ضعيف')">
+                    <i class="fas fa-frown"></i> ضعيف
+                </button>
+            </div>
+            
+            <div id="monthResult" class="result"></div>
+        </div>
+        
+        <!-- الجزء 10: الخاتمة -->
+        <div class="section">
+            <h2><i class="fas fa-envelope-open-text"></i> رسالة أخيرة</h2>
+            
+            <div class="reflect" style="text-align: center; font-size: 1.2rem;">
+                <p>إن كنت تقرأ هذا الآن، فاعلم أن الله لم يتركك، ولم يُغلق بابه دونك.</p>
+                <p>ما دام القلب ينبض، فباب التوبة مفتوح، والرجوع ممكن، والبداية من جديد قريبة.</p>
+                <p style="margin-top: 20px; color: var(--primary); font-weight: bold;">
+                    إن أصلحت ما بينك وبين الله، أصلح الله ما بينك وبين الناس وما بينك وبين نفسك.
+                </p>
+            </div>
+        </div>
+        
+        <!-- الدعاء الختامي -->
+        <div class="dua">
+            <p>اللهم إنّا نسألك:</p>
+            <p>قلبًا سليمًا، ولسانًا ذاكرًا، وعملاً متقبلاً</p>
+            <p>اللهم اختم لنا بخير</p>
+            <p>واجعل هذا العمل شاهدًا لنا لا علينا</p>
+            <p style="margin-top: 20px; font-size: 1.3rem; color: var(--primary);">
+                ﴿ وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ﴾
+            </p>
+        </div>
+        
+        <footer>
+            <p>🌿 تم بحمد الله</p>
+            <p>صفحة دعوية تفاعلية لمحاسبة النفس</p>
+            <p style="margin-top: 15px; font-size: 1rem; color: #777;">
+                تصميم: محاسبة القلب – جميع الحقوق محفوظة للنشر الدعوي
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // البيانات الأساسية
+        let prayers = 0;
+        let dhikrCount = 0;
+        const adhkar = [
+            "سبحان الله",
+            "الحمد لله", 
+            "الله أكبر",
+            "لا إله إلا الله",
+            "أستغفر الله"
+        ];
+        let currentDhikr = 0;
+        
+        // تهيئة صفحة الأذكار
+        document.getElementById("dhikrText").innerText = adhkar[currentDhikr];
+        
+        // وظيفة القرآن
+        function quran(type) {
+            const resultDiv = document.getElementById("quranResult");
+            let message = "";
+            let className = "";
+            
+            if (type === "خير") {
+                message = "🌿 طوبى لك، القرآن نور قلبك. استمر على هذا الطريق.";
+                className = "result-success";
+            } else if (type === "غفلة") {
+                message = "⚠ حاول أن تتدبر، فالقرآن رسالة لك شخصيًا. ابدأ بصفحة واحدة يوميًا بتدبر.";
+                className = "result-warning";
+            } else {
+                message = "⛔ هذا خطر عظيم، عد إلى كتاب الله. ابدأ بآية واحدة وتدبرها.";
+                className = "result-danger";
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${className}`;
+            resultDiv.style.display = "block";
+        }
+        
+        // وظيفة الصلاة
+        function addPrayer() {
+            if (prayers < 5) {
+                prayers++;
+                updatePrayerDisplay();
+                
+                const msgDiv = document.getElementById("prayerMsg");
+                if (prayers === 5) {
+                    msgDiv.innerHTML = "✅ أحسنت، أتممت صلاتك اليوم! احرص على السنن والنوافل.";
+                    msgDiv.className = "result result-success";
+                    msgDiv.style.display = "block";
+                } else {
+                    msgDiv.innerHTML = `📿 بقي لديك ${5 - prayers} صلوات. الله يثبتك ويقويك.`;
+                    msgDiv.className = "result result-warning";
+                    msgDiv.style.display = "block";
+                }
+            }
+        }
+        
+        function resetPrayer() {
+            prayers = 0;
+            updatePrayerDisplay();
+            document.getElementById("prayerMsg").style.display = "none";
+        }
+        
+        function updatePrayerDisplay() {
+            document.getElementById("prayerCount").textContent = `${prayers} / 5`;
+            const percent = (prayers / 5) * 100;
+            document.getElementById("prayerPercent").textContent = `${percent}%`;
+            document.getElementById("prayerProgress").style.width = `${percent}%`;
+        }
+        
+        // وظيفة القلب
+        function heart(state) {
+            const resultDiv = document.getElementById("heartResult");
+            let message = "";
+            let className = "";
+            
+            if (state === "حي") {
+                message = "💚 حافظ عليه بالطاعة والذكر. القلب الحي ينبض بحب الله.";
+                className = "result-success";
+            } else if (state === "غافل") {
+                message = "⏰ القلب الغافل يحتاج إلى: 1) ورد قرآن يومي 2) ذكر مستمر 3) محاسبة النفس.";
+                className = "result-warning";
+            } else {
+                message = "🩸 القلب القاسي يحتاج إلى: 1) توبة نصوح 2) دمعة صدق في الخلوة 3) بر الوالدين 4) صدقة سرية.";
+                className = "result-danger";
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${className}`;
+            resultDiv.style.display = "block";
+        }
+        
+        // وظيفة الذنوب
+        function sinState(state) {
+            const resultDiv = document.getElementById("sinResult");
+            let message = "";
+            let className = "";
+            
+            if (state === "تائب") {
+                message = "🌿 أبشر، الله يحب التوابين. التوبة تجدد القلب وتطهره.";
+                className = "result-success";
+            } else {
+                message = "⚠ لا تأمن مكر الله، بادر الآن بالتوبة قبل أن يقسو القلب.";
+                className = "result-danger";
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${className}`;
+            resultDiv.style.display = "block";
+        }
+        
+        // وظيفة الأذكار
+        function addDhikr() {
+            dhikrCount++;
+            updateDhikrDisplay();
+            
+            // تغيير الذكر كل 10 مرات
+            if (dhikrCount % 10 === 0) {
+                currentDhikr = (currentDhikr + 1) % adhkar.length;
+                document.getElementById("dhikrText").innerText = adhkar[currentDhikr];
+                
+                const msgDiv = document.getElementById("dhikrMsg");
+                msgDiv.innerHTML = "🌿 انتقل إلى الذكر التالي. استمر في الذكر، فهو نور القلب.";
+                msgDiv.className = "result result-success";
+                msgDiv.style.display = "block";
+                
+                setTimeout(() => {
+                    msgDiv.style.display = "none";
+                }, 3000);
+            }
+        }
+        
+        function resetDhikr() {
+            dhikrCount = 0;
+            currentDhikr = 0;
+            document.getElementById("dhikrText").innerText = adhkar[0];
+            updateDhikrDisplay();
+            document.getElementById("dhikrMsg").style.display = "none";
+        }
+        
+        function updateDhikrDisplay() {
+            document.getElementById("dhikrCount").textContent = dhikrCount;
+            const percent = (dhikrCount % 10) * 10;
+            document.getElementById("dhikrPercent").textContent = `${percent}%`;
+            document.getElementById("dhikrProgress").style.width = `${percent}%`;
+        }
+        
+        // وظيفة المحاسبة الشهرية
+        function monthReview(state) {
+            const resultDiv = document.getElementById("monthResult");
+            let message = "";
+            let className = "";
+            
+            if (state === "جيد") {
+                message = "🤍 احمد الله وواصل. النجاح في الاستمرارية.";
+                className = "result-success";
+            } else if (state === "متوسط") {
+                message = "🌱 تستطيع أن تكون أفضل. ضع هدفًا صغيرًا وابدأ من الآن.";
+                className = "result-warning";
+            } else {
+                message = "⚠ استعن بالله وابدأ من جديد. لا تيأس، فالتوبة تمحو ما قبلها.";
+                className = "result-danger";
+            }
+            
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${className}`;
+            resultDiv.style.display = "block";
+        }
+        
+        // وظيفة التمرير للأعلى
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+        
+        // عرض زر التمرير للأعلى عند التمرير
+        window.onscroll = function() {
+            const btn = document.querySelector(".floating-btn");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = "flex";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+        
+        // تهيئة أولية
+        updatePrayerDisplay();
+        updateDhikrDisplay();
+        
+        // إخفاء زر التمرير للأعلى في البداية
+        document.querySelector(".floating-btn").style.display = "none";
+    </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("التطبيق جاهز للعمل بدون إنترنت"));
+  }
+</script>
 </body>
 </html>
