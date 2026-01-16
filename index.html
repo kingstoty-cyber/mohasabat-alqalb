@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>محاسبة القلب</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 28px;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 30px;
+      line-height: 2;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #4CAF50;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🕌 محاسبة القلب</h1>
+
+  <div class="card" id="content">
+    ﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَلْتَنظُرْ نَفْسٌ مَّا قَدَّمَتْ لِغَدٍ ﴾  
+    <br>— سورة الحشر
+  </div>
+
+  <button onclick="changeText()">ذكر جديد</button>
+
+  <script>
+    const texts = [
+      "قال ﷺ: «الكَيِّسُ مَن دَانَ نَفْسَهُ»",
+      "استغفر الله، فإن القلوب تصدأ",
+      "حاسب نفسك قبل أن تُحاسَب",
+      "اللهم طهّر قلوبنا من النفاق"
+    ];
+
+    function changeText() {
+      const random = Math.floor(Math.random() * texts.length);
+      document.getElementById("content").innerText = texts[random];
+    }
+  </script>
+
+</body>
+</html>
