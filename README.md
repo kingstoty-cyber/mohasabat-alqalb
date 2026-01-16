@@ -4,7 +4,6 @@
 
 🌐 **رابط التطبيق المباشر**  
 https://kingstoty-cyber.github.io/mohasabat-alqalb/
-
 ---
 
 ## ✨ فكرة التطبيق
